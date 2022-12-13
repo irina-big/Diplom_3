@@ -1,3 +1,5 @@
+package api;
+
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
@@ -33,8 +35,7 @@ public class UserClient extends Client {
     public ValidatableResponse changeUserData(User newUser, String accessToken) {
         return  given()
                 .spec(getSpecification())
-                .auth()
-                .oauth2(accessToken)
+                .header("Authorization", accessToken)
                 .body(newUser)
                 .when()
                 .patch(PATH_USER)
@@ -45,19 +46,19 @@ public class UserClient extends Client {
     public ValidatableResponse deleteUser(String accessToken){
         return given()
                 .spec(getSpecification())
-                .auth()
-                .oauth2(accessToken)
+                .header("Authorization", accessToken)
                 .when()
                 .delete(PATH_USER)
                 .then();
-    }
+   }
+
+
 
     @Step ("Выйти из системы")
     public ValidatableResponse logoutUser(String accessToken, String refreshToken){
         return  given()
                 .spec(getSpecification())
-                .auth()
-                .oauth2(accessToken)
+                .header("Authorization", accessToken)
                 .body("{\"token\":\"" + refreshToken + "\"}")
                 .when()
                 .post(PATH_LOGOUT)

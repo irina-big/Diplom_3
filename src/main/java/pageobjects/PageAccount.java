@@ -1,9 +1,9 @@
-package pageObjects;
+package pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
-import static pageObjects.AllLocators.*;
+import static pageobjects.AllLocators.*;
 
 public class PageAccount {
     WebDriver driver;

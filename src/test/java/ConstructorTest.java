@@ -3,11 +3,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageObjects.PageAccount;
+import pageobjects.PageAccount;
 
 import java.util.concurrent.TimeUnit;
 
-import static pageObjects.AllLocators.BASE_URL;
+import static pageobjects.AllLocators.BASE_URL;
 
 public class ConstructorTest {
     WebDriver driver;
