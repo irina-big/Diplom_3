@@ -1,0 +1,12 @@
+pageObjects\PageLogin.class
+Client.class
+pageObjects\PageAccount.class
+pageObjects\Waits.class
+User.class
+pageObjects\PageConstructor.class
+pageObjects\PageMain.class
+org\example\App.class
+pageObjects\AllLocators.class
+pageObjects\PageRegister.class
+UserClient.class
+UserGenerator.class
