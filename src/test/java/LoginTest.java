@@ -1,3 +1,4 @@
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -17,25 +18,28 @@ public class LoginTest {
         driver.get(BASE_URL);
         pageAccount = new PageAccount(driver);
     }
-    //вход по кнопке "Войти в аккаунт" на главной
     @Test
+    @DisplayName("вход по кнопке «Войти в аккаунт» на главной")
     public void buttonLoginAccountTest(){
 
 
     }
 
-    //вход через кнопку «Личный кабинет»
     @Test
-    public void buttonAccountTest(){
+    @DisplayName("вход через кнопку «Личный кабинет»")
+    public void loginByButtonAccountTest(){
 
 
     }
-    //вход через кнопку в форме регистрации
-
-    //вход через кнопку в форме восстановления пароля
 
     @Test
-    public void successLoginTest() {
+    @DisplayName("Вход через кнопку в форме восстановления пароля")
+    public void loginByButtonPasswordRecoveryTest(){
+
+    }
+    @Test
+    @DisplayName("Вход через кнопку в форме регистрации")
+    public void loginByButtonOnRegistrationFormTest() {
         //TimeUnit.SECONDS.sleep(10);
         pageAccount.buttonAccount_click();
         pageAccount.fieldEmail_fill("login71@yandex.ru");
