@@ -5,11 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.PageAccount;
-import pageobjects.PageLogin;
-import pageobjects.PageMain;
-
-import java.util.concurrent.TimeUnit;
+import pageobjects.*;
 
 import static pageobjects.AllLocators.*;
 
@@ -18,6 +14,8 @@ public class LoginTest {
     PageLogin pageLogin ;
     PageMain pageMain;
     PageAccount pageAccount;
+    PageForgotPassword pageForgotPassword;
+    PageRegister pageRegister;
     @Before
     public void startDriver(){
         driver = new ChromeDriver();
@@ -26,42 +24,49 @@ public class LoginTest {
         pageLogin = new PageLogin(driver);
         pageMain = new PageMain(driver);
         pageAccount = new PageAccount(driver);
+        pageForgotPassword = new PageForgotPassword(driver);
+        pageRegister = new PageRegister(driver);
     }
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной")
     public void buttonLoginAccountTest() throws InterruptedException {
         pageMain.buttonLoginAccount_click();
-        pageLogin.fieldEmail_fill("login71@yandex.ru");
-        pageLogin.fieldPassword_fill("password929");
-        pageLogin.buttonLogin_click();
+        pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
         String expected = "Профиль";
         Assert.assertEquals(expected, pageAccount.textOfElement(HEADER_PROFILE));
-
     }
 
     @Test
     @DisplayName("Вход через кнопку «Личный кабинет»")
     public void loginByButtonAccountTest() throws InterruptedException {
         pageMain.buttonAccount_click();
-        pageLogin.fieldEmail_fill("login71@yandex.ru");
-        pageLogin.fieldPassword_fill("password929");
-        pageLogin.buttonLogin_click();
+        pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
         String expected = "Профиль";
         Assert.assertEquals(expected, pageAccount.textOfElement(HEADER_PROFILE));
-
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
-    public void loginByButtonPasswordRecoveryTest(){
-
+    public void loginByButtonPasswordRecoveryTest() throws InterruptedException {
+        driver.get(LOGIN_URL);
+        pageLogin.passwordRecovery_click();
+        pageForgotPassword.linkLogin_click();
+        pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
+        pageMain.buttonAccount_click();
+        String expected = "Профиль";
+        Assert.assertEquals(expected, pageAccount.textOfElement(HEADER_PROFILE));
     }
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void loginByButtonOnRegistrationFormTest() throws InterruptedException {
-
+        driver.get(REGISTER_URL);
+        pageRegister.linkLogin_click();
+        pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
+        pageMain.buttonAccount_click();
+        String expected = "Профиль";
+        Assert.assertEquals(expected, pageAccount.textOfElement(HEADER_PROFILE));
     }
     @After
     public void quit(){

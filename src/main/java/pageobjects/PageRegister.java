@@ -1,8 +1,6 @@
 package pageobjects;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import static pageobjects.AllLocators.*;
@@ -44,6 +42,13 @@ public class PageRegister extends PageLogin{
     @Step("Сообщение об ошибке НЕКОРРЕКТНЫЙ ПАРОЛЬ появилось на экране")
     public boolean incorrectPassword_isDisplayed(){
         return element_isDisplayed(INCORRECT_PASSWORD);
+    }
+
+    @Step("Клик по ссылке ВОЙТИ на странице регистрации")
+    public void linkLogin_click() {
+        waits.scrollToElement(LINK_LOGIN);
+        waits.waitWhileElementToBeClickable(LINK_LOGIN);
+        driver.findElement(LINK_LOGIN).click();
     }
 
 
