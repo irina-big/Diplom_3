@@ -13,7 +13,6 @@ public class PageForgotPassword {
         this.driver = driver;
         waits = new Waits(this.driver);
     }
-
     @Step("Клик по ссылке ВОЙТИ на странице ВОССТАНОВИТЬ ПАРОЛЬ")
     public void linkLogin_click() {
         waits.scrollToElement(LINK_LOGIN);

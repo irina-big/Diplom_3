@@ -3,8 +3,7 @@ package pageobjects;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
-import static pageobjects.AllLocators.BUTTON_ACCOUNT;
-import static pageobjects.AllLocators.BUTTON_LOGIN_ACCOUNT;
+import static pageobjects.AllLocators.*;
 
 public class PageMain {
     WebDriver driver;
@@ -27,9 +26,6 @@ public class PageMain {
     }
     @Step ("Главная страница отображается на экране")
     public boolean mainPage_isDisplayed(){
-        return driver.getCurrentUrl().equals("https://stellarburgers.nomoreparties.site/");
+        return driver.getCurrentUrl().equals(BASE_URL);
     }
-
-
-
 }

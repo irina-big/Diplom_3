@@ -50,6 +50,4 @@ public class PageRegister extends PageLogin{
         waits.waitWhileElementToBeClickable(LINK_LOGIN);
         driver.findElement(LINK_LOGIN).click();
     }
-
-
 }

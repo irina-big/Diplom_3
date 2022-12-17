@@ -57,12 +57,7 @@ public class PageLogin {
     }
 
     @Step ("Страница входа загрузилась")
-    public boolean loginPage_isLoaded(){
-        return driver.getCurrentUrl().equals(LOGIN_URL);
-    }
-
-    public boolean headerLoginOnDisplay() throws InterruptedException {
-        //waits.sleep(5);
+    public boolean headerLoginOnDisplay() {
         waits.waitUntilElementToBeVisibility(HEADER_LOGIN);
         return  driver.findElement(HEADER_LOGIN).getText().equals("Вход");
     }

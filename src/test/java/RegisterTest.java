@@ -11,14 +11,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.PageAccount;
 import pageobjects.PageRegister;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static org.apache.http.HttpStatus.SC_OK;
-import static pageobjects.AllLocators.*;
+import static pageobjects.AllLocators.BASE_URL;
 
 @RunWith(Parameterized.class)
 public class RegisterTest {

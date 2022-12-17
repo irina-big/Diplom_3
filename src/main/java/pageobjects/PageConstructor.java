@@ -41,12 +41,10 @@ public class PageConstructor {
         waits.waitWhileElementToBeClickable(TAB_FILLINGS);
         driver.findElement(TAB_FILLINGS).click();
     }
-
     @Step("Получить текст выбранной вкладки")
     public String textOfSelectTab() throws InterruptedException {
         waits.sleep(5);
         waits.waitUntilElementToBeVisibility(TAB_SELECT);
         return driver.findElement(TAB_SELECT).getText();
     }
-
 }

@@ -1,13 +1,11 @@
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.PageAccount;
 import pageobjects.PageConstructor;
-
-import java.util.concurrent.TimeUnit;
 
 import static pageobjects.AllLocators.BASE_URL;
 
@@ -42,5 +40,9 @@ public class ConstructorTest {
         pageConstructor.sauses_click();
         pageConstructor.fillings_click();
         Assert.assertEquals("Начинки", pageConstructor.textOfSelectTab());
+    }
+    @After
+    public void quit(){
+        driver.quit();
     }
 }
