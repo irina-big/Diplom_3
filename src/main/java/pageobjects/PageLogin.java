@@ -16,8 +16,8 @@ public class PageLogin {
     }
 
     @Step("Клик по кнопке ВОЙТИ на странице входа")
-    public void buttonLogin_click() {
-        waits.scrollToElement(BUTTON_LOGIN);
+    public void buttonLogin_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(BUTTON_LOGIN);
         driver.findElement(BUTTON_LOGIN).click();
     }
@@ -35,29 +35,32 @@ public class PageLogin {
     }
 
     @Step("Клик по ссылке ВОССТАНОВИТЬ ПАРОЛЬ")
-    public void passwordRecovery_click(){
-        waits.scrollToElement(LINK_PASSWORD_RECOVERY);
+    public void passwordRecovery_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(LINK_PASSWORD_RECOVERY);
         driver.findElement(LINK_PASSWORD_RECOVERY).click();
     }
     protected boolean element_isDisplayed(By element){
         try {
-            waits.scrollToElement(element);
+            waits.sleep(5);
             waits.waitWhileElementToBeClickable(element);
             return driver.findElement(element).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void fillAllFieldsAndSignIn(String email, String password){
+    public void fillAllFieldsAndSignIn(String email, String password) throws InterruptedException {
         fieldEmail_fill(email);
         fieldPassword_fill(password);
         buttonLogin_click();
     }
 
     @Step ("Страница входа загрузилась")
-    public boolean headerLoginOnDisplay() {
+    public boolean headerLoginOnDisplay() throws InterruptedException {
+        waits.sleep(5);
         waits.waitUntilElementToBeVisibility(HEADER_LOGIN);
         return  driver.findElement(HEADER_LOGIN).getText().equals("Вход");
     }

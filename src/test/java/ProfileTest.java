@@ -3,26 +3,38 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.PageAccount;
 import pageobjects.PageConstructor;
 import pageobjects.PageLogin;
 import pageobjects.PageMain;
 
 import static pageobjects.AllLocators.*;
-
+@RunWith(Parameterized.class)
 public class ProfileTest {
     WebDriver driver;
     PageLogin pageLogin ;
     PageMain pageMain;
     PageAccount pageAccount;
     PageConstructor pageConstructor;
-
+    BrowserOptions browserOptions;
+    String browser;
+    public ProfileTest(String browser){
+        this.browser = browser;
+    }
+    @Parameterized.Parameters
+    public static Object[][] getParameters() {
+        return new Object[][] {
+                {"Chrome"},
+                {"Yandex"}
+        };
+    }
     @Before
     public void startDriver(){
-        driver = new ChromeDriver();
-        //driver = new FirefoxDriver();
+        browserOptions = new BrowserOptions();
+        driver = browserOptions.createDriverWithOptions(browser);
         driver.get(BASE_URL);
         pageLogin = new PageLogin(driver);
         pageMain = new PageMain(driver);
@@ -31,7 +43,7 @@ public class ProfileTest {
     }
     @Test
     @DisplayName("Переход по клику на ЛИЧНЫЙ КАБИНЕТ")
-    public void moveToAccountTest() {
+    public void moveToAccountTest() throws InterruptedException {
         driver.get(LOGIN_URL);
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
@@ -40,7 +52,7 @@ public class ProfileTest {
     }
     @Test
     @DisplayName("Переход из личного кабинета в конструктор по клику на КОНСТРУКТОР")
-    public void moveToConstructorFromProfileTest(){
+    public void moveToConstructorFromProfileTest() throws InterruptedException {
         driver.get(LOGIN_URL);
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
@@ -49,7 +61,7 @@ public class ProfileTest {
     }
     @Test
     @DisplayName("Переход из личного кабинета в конструктор по клику на логотип Stellar Burgers")
-    public void moveToConstructorFromLogoStellarTest(){
+    public void moveToConstructorFromLogoStellarTest() throws InterruptedException {
         driver.get(LOGIN_URL);
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
@@ -58,7 +70,7 @@ public class ProfileTest {
     }
     @Test
     @DisplayName("Выход из аккаунта по кнопке ВЫЙТИ в личном кабинете")
-    public void logoutTest() {
+    public void logoutTest() throws InterruptedException {
         driver.get(LOGIN_URL);
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();

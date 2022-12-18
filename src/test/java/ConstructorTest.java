@@ -3,19 +3,32 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.PageConstructor;
 
 import static pageobjects.AllLocators.BASE_URL;
-
+@RunWith(Parameterized.class)
 public class ConstructorTest {
     WebDriver driver;
     PageConstructor pageConstructor ;
+    BrowserOptions browserOptions;
+    String browser;
+    public ConstructorTest(String browser){
+        this.browser = browser;
+    }
+    @Parameterized.Parameters
+    public static Object[][] getParameters() {
+        return new Object[][] {
+                {"Chrome"},
+                {"Yandex"}
+        };
+    }
     @Before
     public void startDriver(){
-        driver = new ChromeDriver();
-        //driver = new FirefoxDriver();
+        browserOptions = new BrowserOptions();
+        driver = browserOptions.createDriverWithOptions(browser);
         driver.get(BASE_URL);
         pageConstructor = new PageConstructor(driver);
     }

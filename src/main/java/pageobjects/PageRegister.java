@@ -10,8 +10,8 @@ public class PageRegister extends PageLogin{
         super(driver);
     }
     @Step("Клик по кнопке Зарегистрироваться")
-    public void buttonRegistration_click(){
-        waits.scrollToElement(BUTTON_REGISTRATION);
+    public void buttonRegistration_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(BUTTON_REGISTRATION);
         driver.findElement(BUTTON_REGISTRATION).click();
     }
@@ -45,8 +45,8 @@ public class PageRegister extends PageLogin{
     }
 
     @Step("Клик по ссылке ВОЙТИ на странице регистрации")
-    public void linkLogin_click() {
-        waits.scrollToElement(LINK_LOGIN);
+    public void linkLogin_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(LINK_LOGIN);
         driver.findElement(LINK_LOGIN).click();
     }

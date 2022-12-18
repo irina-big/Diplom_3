@@ -13,19 +13,20 @@ public class PageMain {
         waits = new Waits(this.driver);
     }
     @Step("Клик по кнопке ЛИЧНЫЙ КАБИНЕТ")
-    public void buttonAccount_click(){
-        waits.scrollToElement(BUTTON_ACCOUNT);
+    public void buttonAccount_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(BUTTON_ACCOUNT);
         driver.findElement(BUTTON_ACCOUNT).click();
     }
     @Step("Клик по кнопке ВОЙТИ В АККАУНТ на главной")
-    public void buttonLoginAccount_click(){
-        waits.scrollToElement(BUTTON_LOGIN_ACCOUNT);
+    public void buttonLoginAccount_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(BUTTON_LOGIN_ACCOUNT);
         driver.findElement(BUTTON_LOGIN_ACCOUNT).click();
     }
     @Step ("Главная страница отображается на экране")
-    public boolean mainPage_isDisplayed(){
+    public boolean mainPage_isDisplayed() throws InterruptedException {
+        waits.sleep(5);
         return driver.getCurrentUrl().equals(BASE_URL);
     }
 }

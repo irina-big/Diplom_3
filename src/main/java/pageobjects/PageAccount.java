@@ -14,12 +14,14 @@ public class PageAccount {
         waits = new Waits(this.driver);
     }
     @Step("Получить текст элемента")
-    public String textOfElement (By element) {
+    public String textOfElement (By element) throws InterruptedException {
+        waits.sleep(5);
         waits.waitUntilElementToBeVisibility(element);
         return driver.findElement(element).getText();
     }
     @Step("Кликнуть по кнопке ВОЙТИ")
-    public void buttonLogout_click() {
+    public void buttonLogout_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitUntilElementToBeVisibility(BUTTON_LOGOUT);
         driver.findElement(BUTTON_LOGOUT).click();
     }

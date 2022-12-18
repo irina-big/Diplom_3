@@ -3,12 +3,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.*;
 
 import static pageobjects.AllLocators.*;
-
+@RunWith(Parameterized.class)
 public class LoginTest {
     WebDriver driver;
     PageLogin pageLogin ;
@@ -16,10 +17,22 @@ public class LoginTest {
     PageAccount pageAccount;
     PageForgotPassword pageForgotPassword;
     PageRegister pageRegister;
+    BrowserOptions browserOptions;
+    String browser;
+    public LoginTest(String browser){
+        this.browser = browser;
+    }
+    @Parameterized.Parameters
+    public static Object[][] getParameters() {
+        return new Object[][] {
+                {"Chrome"},
+                {"Yandex"}
+        };
+    }
     @Before
     public void startDriver(){
-        driver = new ChromeDriver();
-        //driver = new FirefoxDriver();
+        browserOptions = new BrowserOptions();
+        driver = browserOptions.createDriverWithOptions(browser);
         driver.get(BASE_URL);
         pageLogin = new PageLogin(driver);
         pageMain = new PageMain(driver);
@@ -29,7 +42,7 @@ public class LoginTest {
     }
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной")
-    public void buttonLoginAccountTest() {
+    public void buttonLoginAccountTest() throws InterruptedException {
         pageMain.buttonLoginAccount_click();
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
@@ -39,7 +52,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Вход через кнопку «Личный кабинет»")
-    public void loginByButtonAccountTest() {
+    public void loginByButtonAccountTest() throws InterruptedException {
         pageMain.buttonAccount_click();
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
         pageMain.buttonAccount_click();
@@ -49,7 +62,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
-    public void loginByButtonPasswordRecoveryTest() {
+    public void loginByButtonPasswordRecoveryTest() throws InterruptedException {
         driver.get(LOGIN_URL);
         pageLogin.passwordRecovery_click();
         pageForgotPassword.linkLogin_click();
@@ -60,7 +73,7 @@ public class LoginTest {
     }
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
-    public void loginByButtonOnRegistrationFormTest() {
+    public void loginByButtonOnRegistrationFormTest() throws InterruptedException {
         driver.get(REGISTER_URL);
         pageRegister.linkLogin_click();
         pageLogin.fillAllFieldsAndSignIn("login71@yandex.ru","password929");
@@ -72,5 +85,4 @@ public class LoginTest {
     public void quit(){
         driver.quit();
     }
-
 }

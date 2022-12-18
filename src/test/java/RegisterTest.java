@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.PageRegister;
 
 import java.util.Random;
@@ -23,26 +22,30 @@ public class RegisterTest {
     WebDriver driver;
     PageRegister pageRegister ;
     User user;
-    public RegisterTest(User user) {
+    BrowserOptions browserOptions;
+    String browser;
+    public RegisterTest(User user, String browser) {
         this.user = user;
+        this.browser = browser;
     }
     @Parameterized.Parameters
     public static Object[][] getParameters() {
         return new Object[][] {
-                {UserGenerator.getUserWithRandomData()}
+                  {UserGenerator.getUserWithRandomData(), "Chrome"},
+                  {UserGenerator.getUserWithRandomData(), "Yandex"}
         };
     }
     @Before
     public void startDriver(){
-        driver = new ChromeDriver();
-        //driver = new FirefoxDriver();
+        browserOptions = new BrowserOptions();
+        driver = browserOptions.createDriverWithOptions(browser);
         driver.get(BASE_URL + "register");
         pageRegister = new PageRegister(driver);
     }
 
     @Test
     @DisplayName("Успешная регистрация")
-    public void successRegistrationTest() {
+    public void successRegistrationTest() throws InterruptedException {
         pageRegister.fieldName_fill(user.getName());
         pageRegister.fieldEmail_fill(user.getEmail());
         pageRegister.fieldPassword_fill(user.getPassword());
@@ -58,7 +61,7 @@ public class RegisterTest {
     }
     @Test
     @DisplayName("Ошибка: некорректный пароль!")
-    public void incorrectPasswordTest() {
+    public void incorrectPasswordTest() throws InterruptedException {
         Random random = new Random();
         user.setPassword("x" + random.nextInt(1000));
         pageRegister.fieldName_fill(user.getName());

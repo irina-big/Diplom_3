@@ -14,8 +14,8 @@ public class PageForgotPassword {
         waits = new Waits(this.driver);
     }
     @Step("Клик по ссылке ВОЙТИ на странице ВОССТАНОВИТЬ ПАРОЛЬ")
-    public void linkLogin_click() {
-        waits.scrollToElement(LINK_LOGIN);
+    public void linkLogin_click() throws InterruptedException {
+        waits.sleep(5);
         waits.waitWhileElementToBeClickable(LINK_LOGIN);
         driver.findElement(LINK_LOGIN).click();
     }
